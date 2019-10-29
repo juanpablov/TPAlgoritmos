@@ -1,3 +1,4 @@
+#include <string>
 using namespace std;
 
 struct Nodo
@@ -8,34 +9,48 @@ struct Nodo
 
 struct Pregunta
 {
-	char descripcion[150];
+	string descripcion;
 	bool habilitada;
+};
+
+struct ListaPreguntas
+{
+	Pregunta* pregunta;
+	ListaPreguntas* siguiente;	
 };
 
 struct Categoria
 {
-	Pregunta preguntas;
+	ListaPregunta* preguntas;
 	bool habilitada;	
 };
 
 struct Respuesta
 {
-	char descripcion[150];
+	string descripcion;
 	bool correcta;
 };
 
 struct Participante
 {
-	char nombre[50];
+	string nombre;
 	int puntos;
+	ListaTurnos* turnos;
 };
 
 struct Turno
 {
-	Pregunta unaPregunta;
-	Respuesta unaRespuesta;
-	Participante proxParticipante;
+	Pregunta* unaPregunta;
+	Respuesta* unaRespuesta;
+	string horarioTurno;
+	Participante* proximoParticipante;
 };
+
+struct ListaTurnos
+{
+	Turno* turno;
+	LIstaTurnos* siguiente;
+}
 
 #ifndef funciones
 #define funciones
