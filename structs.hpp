@@ -10,11 +10,12 @@ struct Pregunta
 {
 	char descripcion[150];
 	bool habilitada;
+	Nodo respuestas;
 };
 
 struct Categoria
 {
-	Pregunta preguntas;
+	Nodo preguntas;
 	bool habilitada;	
 };
 
