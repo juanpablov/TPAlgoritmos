@@ -11,13 +11,19 @@ struct Pregunta
 {
 	string descripcion;
 	bool habilitada;
-	Nodo respuestas;
+	ListaRespuestas respuestas;
 };
 
 struct ListaPreguntas
 {
 	Pregunta* pregunta;
 	ListaPreguntas* siguiente;
+};
+
+struct ListaRespuestas
+{
+	Respuesta* respuesta;
+	ListaRespuestas* siguiente;
 };
 
 struct Categoria
@@ -33,24 +39,36 @@ struct Respuesta
 };
 
 struct Participante
-{
+{	
+	int idParticipante;
 	string nombre;
+	bool habilitado;
 	int puntos;
+	// int posUltPreg;
 	ListaTurnos* turnos;
 };
 
 struct Turno
-{
+{	
+	int idTurno;
+	Participante* participante;
 	Pregunta* unaPregunta;
 	Respuesta* unaRespuesta;
 	string horarioTurno;
-	Participante* proximoParticipante;
 };
 
 struct ListaTurnos
 {
 	Turno* turno;
-	LIstaTurnos* siguiente;
+	ListaTurnos* siguiente;
+}
+struct Ronda{
+	int idRonda;
+	ListaTurnos* turnos;
+}
+struct ListaRondas{
+	Ronda* ronda;
+	ListaRondas* siguiente;
 }
 
 #ifndef funciones
