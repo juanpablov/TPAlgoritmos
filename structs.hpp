@@ -26,6 +26,7 @@ struct ListaRespuestas
 	ListaRespuestas* siguiente;
 };
 
+
 struct Categoria
 {
 	ListaPregunta* preguntas;
@@ -47,6 +48,13 @@ struct Participante
 	// int posUltPreg;
 	ListaTurnos* turnos;
 };
+struct NodoParticipante{
+	Participante* participante;
+	NodoParticipante* siguiente;
+}
+struct ListaParticipantes{
+	NodoParticipante* primerElemento;
+}
 
 struct Turno
 {	
@@ -57,10 +65,14 @@ struct Turno
 	string horarioTurno;
 };
 
+struct NodoTurno{
+	Turno* turno;
+	NodoTurno* siguiente;
+};
+
 struct ListaTurnos
 {
-	Turno* turno;
-	ListaTurnos* siguiente;
+	NodoTurno* primerElemento;
 }
 struct Ronda{
 	int idRonda;
@@ -70,6 +82,44 @@ struct ListaRondas{
 	Ronda* ronda;
 	ListaRondas* siguiente;
 }
+
+
+// ========== MODELO FUNCION GENERAR RONDA ==========
+Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
+	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
+	// Participante participanteActual = participantes->participante;
+	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
+		nuevo_turno = new Turno();
+		nuevo_turno->participante = participanteAuxiliar->participante;
+		nuevo_turno->pregunta = traerPreguntaHabilitada();
+		nuevo_turno->respuesta = NULL;
+		nuevo_turno->horarioTurno = NULL;
+		agregarTurno(nuevo_turno, turnos);
+
+		participanteAuxiliar->participante->habilitado = 0;
+		// participantes->participante->habilitado = 0;
+		participanteAuxiliar = participanteAuxiliar->siguiente;
+	}
+	participanteAuxiliar = participantes->primerElemento;
+	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 0){
+		participanteAuxiliar->participante->habilitado = 1;
+		participanteAuxiliar = participanteAuxiliar->siguiente;
+	}
+}
+
+void agregarTurno(Turno* turno, ListaTurnos* turnos){
+	NodoTurno* nodoAuxiliar = turnos->primerElemento;
+	// agregar chequeo lista vacia 
+	while(nodoAuxiliar->siguiente != NULL){
+		nodoAuxiliar = nodoAuxiliar->siguiente;
+	}
+	NodoTurno* nuevo_nodo_turno = new NodoTurno();
+	nuevo_nodo_turno->turno = turno;
+	nuevo_nodo_turno->siguiente = NULL;
+	nodoAuxiliar->siguiente = nuevo_nodo_turno;
+}
+
+
 
 #ifndef funciones
 #define funciones
