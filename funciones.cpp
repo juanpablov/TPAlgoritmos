@@ -2,6 +2,64 @@
 #include <iostream>
 using namespace std;
 
+
+ListaPreguntas* listaPreguntasCreate() {
+	ListaPreguntas* listaPreguntas = new ListaPreguntas();
+	listaPreguntas->primerElemento = NULL;
+	return listaPreguntas;
+}
+
+ListaRespuestas* listaRespuestasCreate() {
+	ListaRespuestas* respuestas = new ListaRespuestas();
+	respuestas->primerElemento = NULL;
+	return respuestas;
+}
+
+NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta) {
+	NodoRespuesta* nuevoNodo = new NodoRespuesta();
+	nuevoNodo->unaRespuesta = unaRespuesta;
+	nuevoNodo->siguienteElemento = NULL
+	return nuevoNodo;
+}
+
+NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta) {
+	NodoPregunta* nuevoNodo = new NodoPregunta();
+	nuevoNodo->unaPregunta = unaPregunta;
+	nuevoNodo->siguienteElemento = NULL;
+	return nuevoNodo;
+}
+
+NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria) {
+	NodoCategoria* nuevoNodo = new NodoCategoria();
+	nuevoNodo->unaCategoria = unaCategoria;
+	nuevoNodo->siguienteElemento = NULL;
+	return nuevoNodo;
+}
+
+Categoria* categoriaCreate(string nombre) {
+	Categoria* nuevaCategoria = new Categoria();
+	nuevaCategoria->habilitada = true;
+	nuevaCategoria->nombre = nombre;
+	nuevaCategoria->preguntas = listaPreguntasCreate();
+	return nuevaCategoria;
+}
+
+Pregunta* preguntaCreate(string descripcion) {
+	Pregunta* nuevaPregunta = new Pregunta();
+	nuevaPregunta->descripcion = descripcion;
+	nuevaPregunta->habilitada = true;
+	nuevaPregunta->respuestas = listaRespuestasCreate();
+	return nuevaPregunta;
+}
+
+Respuesta* respuestaCreate(bool esCorrecta, string descripcion ) {
+	Respuesta* unaRespuesta = new Respuesta();
+	unaRespuesta->correcta = esCorrecta;
+	unaRespuesta->descripcion = descripcion;
+	return unaRespuesta;
+}
+
+
 Pregunta* traerPreguntaHabilitada()
 {
 	
