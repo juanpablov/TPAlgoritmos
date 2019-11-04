@@ -19,34 +19,30 @@ int main()
 	Pregunta unaPregunta;
 	Respuesta unaRespuesta;
 
-	/*unaCategoria.nombre = "Historia";
+	unaCategoria.nombre = "Historia";
 	unaCategoria.nombre = "Geografia";
 	unaCategoria.nombre = "Arte";
-	unaPregunta.descripcion = "�En que anio se desarrollo la guerra de Malvinas?";*/
+	unaPregunta.descripcion = "En que anio se desarrollo la guerra de Malvinas?";
 
-	//fwrite(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
+	fwrite(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
 
-	fread(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
-	cout<<unaPregunta.descripcion;
+	//fread(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
+	//cout<<unaPregunta.descripcion;
 
 // ====== LOGICA DE TURNOS Y RONDAS DURANTE EL JUEGO =======
 
-	ListaTurnos* turnos = NULL;
-	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego,turnos);
+	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego);
 
 	NodoRonda* rondaAuxiliar = rondasIniciales->primerElemento;
 	while(rondaAuxiliar->siguienteElemento != NULL){
-		NodoTurno* turnoAuxiliar = turnos->primerElemento;
+		NodoTurno* turnoAuxiliar = rondaAuxiliar->turnos->primerElemento;
 		while(turnoAuxiliar->siguienteElemento != NULL){
-
+			cout << turnoAuxiliar->
 			turnoAuxiliar = turnoAuxiliar->siguienteElemento;
 		}
 
 		rondaAuxiliar = rondaAuxiliar->siguienteElemento;
 	}
-
-
-
 	return 0;
 }
 

@@ -65,7 +65,8 @@ Pregunta* traerPreguntaHabilitada()
 	
 }
 
-Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos, int nroRonda){
+Ronda generarRonda(ListaParticipantes* participantes, int nroRonda){
+	ListaTurnos* turnos = new ListaTurnos();
 	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
@@ -88,11 +89,11 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos, int n
 	return ronda;
 }
 
-ListaRondas generarRondas(int cantidadRondas, ListaParticipantes* participantes, ListaTurnos* turnos){
+ListaRondas generarRondas(int cantidadRondas, ListaParticipantes* participantes){
 	ListaRondas rondasIniciales = new ListaRondas();
 	for (int i = 0; i < cantidadRondas; ++i)
 	{	
-		nueva_ronda = generarRonda(participantes, turnos, i);
+		nueva_ronda = generarRonda(participantes, i);
 		NodoRonda *nodo_ronda = new NodoRonda();
         nodo_ronda->unaRonda = nueva_ronda;
         nodo_ronda->siguiente = NULL;
