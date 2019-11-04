@@ -115,7 +115,7 @@ struct ListaTurnos
 
 struct Ronda
 {
-	int idRonda;
+	int nroRonda;
 	ListaTurnos* turnos;
 };
 

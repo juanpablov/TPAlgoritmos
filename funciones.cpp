@@ -65,7 +65,7 @@ Pregunta* traerPreguntaHabilitada()
 	
 }
 
-Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
+Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos, int nroRonda){
 	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
@@ -86,6 +86,28 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
 	ronda->turnos = turnos;
 	return ronda;
 }
+
+ListaRondas generarRondas(int cantidadRondas = 5){
+	ListaRondas rondasIniciales = new ListaRondas();
+	for (int i = 0; i < cantidadRondas; ++i)
+	{	
+		nueva_ronda = generarRonda(participantes, turnos, i);
+		NodoRonda *nodo_ronda = new NodoRonda();
+        nodo_ronda->unaRonda = nueva_ronda;
+        nodo_ronda->siguiente = NULL;
+        if (i == 1)
+        {
+        	rondasIniciales->primerElemento = nodo_ronda;
+
+        } else{
+        	NodoRonda* ultimoNodo = buscarUltimaRonda(rondasIniciales);
+        	ultimoNodo->siguiente = nodo_ronda;
+        }   
+	}
+	return rondasIniciales;
+}
+
+
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos){
 	NodoTurno* nodoAuxiliar = turnos->primerElemento;
@@ -133,7 +155,18 @@ ListaParticipantes* ingresarParticipantes(){
     return participantes;
 }
 
-/*{
+
+/*
+NodoRonda* buscarUltimaRonda(ListaRondas* rondas){
+	NodoRonda* nodoAuxiliar = rondas->primerElemento;
+	while(nodoAuxiliar->siguiente != NULL){
+		nodoAuxiliar = nodoAuxiliar->siguiente;
+	}
+	return nodoAuxiliar;
+}
+
+NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
+
 	NodoParticipante* nodoAuxiliar = participantes->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
 		nodoAuxiliar = nodoAuxiliar->siguiente;
