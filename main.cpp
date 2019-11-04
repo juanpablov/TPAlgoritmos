@@ -1,5 +1,4 @@
 #include "structs.hpp"
-#include "funciones.cpp"
 #include <iostream>
 using namespace std;
 
@@ -10,30 +9,31 @@ int main()
 	
 	//recuperarCatPregResp(unaListaCat);
 	
-	FILE* archivoContenido = fopen("contenido.dat", "wb");
-
+	//ListaCategoria* unaListaCat = new ListaCategoria();
+	//iniciarCategoriasPreguntasRespuestas(unaListaCat);
+	//ListaParticipantes* participantes =  ingresarParticipantes();
+	
+	FILE* archivoContenido = fopen("contenido.dat", "rb");
 
 	Categoria unaCategoria;
 	Pregunta unaPregunta;
 	Respuesta unaRespuesta;
 
-	ListaCategoria* unaListaCat = new ListaCategoria();
-	iniciarCategoriasPreguntasRespuestas(unaListaCat);
-	ListaParticipantes* participantes =  ingresarParticipantes();
-	
-
-	unaCategoria.nombre = "Historia";
-	unaPregunta.descripcion = "¿En que anio se desarrollo la guerra de Malvinas?";
+	/*unaCategoria.nombre = "Historia";
+	unaCategoria.nombre = "Geografia";
+	unaCategoria.nombre = "Arte";
+	unaPregunta.descripcion = "¿En que anio se desarrollo la guerra de Malvinas?";*/
+		
+	//fwrite(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
 	
 	fread(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
-	
-	
-	
+	cout<<unaPregunta.descripcion;
+
 	
 	return 0;
 }
 
-void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias) {
+/* void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias){
 	//Abro archivo
 	int index = 1;
 	while (index < 100) {
@@ -42,4 +42,4 @@ void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias) {
 		//
 		index++;
 	}
-}
+}*/

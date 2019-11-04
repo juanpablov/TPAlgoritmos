@@ -133,13 +133,13 @@ ListaParticipantes* ingresarParticipantes(){
     return participantes;
 }
 
-NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
+/*{
 	NodoParticipante* nodoAuxiliar = participantes->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
 		nodoAuxiliar = nodoAuxiliar->siguiente;
 	}
 	return nodoAuxiliar;	
-}
+}*/
 
 
 
