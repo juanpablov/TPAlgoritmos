@@ -74,7 +74,7 @@ struct Participante
 struct NodoParticipante
 {
 	Participante* participante;
-	NodoParticipante* siguienteElemento;
+	NodoParticipante* siguiente;
 };
 
 struct ListaParticipantes

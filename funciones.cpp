@@ -2,14 +2,72 @@
 #include <iostream>
 using namespace std;
 
+
+ListaPreguntas* listaPreguntasCreate() {
+	ListaPreguntas* listaPreguntas = new ListaPreguntas();
+	listaPreguntas->primerElemento = NULL;
+	return listaPreguntas;
+}
+
+ListaRespuestas* listaRespuestasCreate() {
+	ListaRespuestas* respuestas = new ListaRespuestas();
+	respuestas->primerElemento = NULL;
+	return respuestas;
+}
+
+NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta) {
+	NodoRespuesta* nuevoNodo = new NodoRespuesta();
+	nuevoNodo->unaRespuesta = unaRespuesta;
+	nuevoNodo->siguienteElemento = NULL
+	return nuevoNodo;
+}
+
+NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta) {
+	NodoPregunta* nuevoNodo = new NodoPregunta();
+	nuevoNodo->unaPregunta = unaPregunta;
+	nuevoNodo->siguienteElemento = NULL;
+	return nuevoNodo;
+}
+
+NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria) {
+	NodoCategoria* nuevoNodo = new NodoCategoria();
+	nuevoNodo->unaCategoria = unaCategoria;
+	nuevoNodo->siguienteElemento = NULL;
+	return nuevoNodo;
+}
+
+Categoria* categoriaCreate(string nombre) {
+	Categoria* nuevaCategoria = new Categoria();
+	nuevaCategoria->habilitada = true;
+	nuevaCategoria->nombre = nombre;
+	nuevaCategoria->preguntas = listaPreguntasCreate();
+	return nuevaCategoria;
+}
+
+Pregunta* preguntaCreate(string descripcion) {
+	Pregunta* nuevaPregunta = new Pregunta();
+	nuevaPregunta->descripcion = descripcion;
+	nuevaPregunta->habilitada = true;
+	nuevaPregunta->respuestas = listaRespuestasCreate();
+	return nuevaPregunta;
+}
+
+Respuesta* respuestaCreate(bool esCorrecta, string descripcion ) {
+	Respuesta* unaRespuesta = new Respuesta();
+	unaRespuesta->correcta = esCorrecta;
+	unaRespuesta->descripcion = descripcion;
+	return unaRespuesta;
+}
+
+
 Pregunta* traerPreguntaHabilitada()
 {
 	
 }
 
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
+	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
-	// Participante participanteActual = participantes->participante;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
 		nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
@@ -17,9 +75,7 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
 		nuevo_turno->respuesta = NULL;
 		nuevo_turno->horarioTurno = NULL;
 		agregarTurno(nuevo_turno, turnos);
-
 		participanteAuxiliar->participante->habilitado = 0;
-		// participantes->participante->habilitado = 0;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
 	}
 	participanteAuxiliar = participantes->primerElemento;
@@ -27,6 +83,8 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
 		participanteAuxiliar->participante->habilitado = 1;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
 	}
+	ronda->turnos = turnos;
+	return ronda;
 }
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos){
@@ -50,3 +108,38 @@ int sumarPuntos()
 {
 	// Completar
 }
+
+ListaParticipantes* ingresarParticipantes(){
+	ListaParticipantes *participantes = new ListaParticipantes();
+    for(int i = 0; i < 5; i++){
+    	Participante *nuevo_participante = new Participante();
+    	nuevo_participante->id = i;
+    	nuevo_participante->habilitado = 1;
+    	nuevo_participante->puntos = 0;
+        cout << "Ingrese un Jugador" << endl;
+        cin << nuevo_participante->nombre << endl;
+        NodoParticipante *nodo = new NodoParticipante();
+        nodo->participante = nuevo_participante;
+        nodo->siguiente = NULL;
+        if (i == 0)
+        {
+        	participantes->primerElemento = nodo;
+
+        } else{
+        	NodoParticipante* ultimoNodo = buscarUltimoParticipante(participantes);
+        	ultimoNodo->siguiente = nodo;
+        }   
+    }
+    return participantes;
+}
+
+NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
+	NodoParticipante* nodoAuxiliar = participantes->primerElemento;
+	while(nodoAuxiliar->siguiente != NULL){
+		nodoAuxiliar = nodoAuxiliar->siguiente;
+	}
+	return nodoAuxiliar;	
+}
+
+
+
