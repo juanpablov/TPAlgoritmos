@@ -24,6 +24,12 @@ struct ListaRespuestas
 	NodoRespuesta* primerElemento;
 };
 
+struct PreguntaParaArchivo
+{
+	string descripcion;
+	bool habilitada;
+};
+
 struct Pregunta
 {
 	string descripcion;
@@ -42,6 +48,11 @@ struct ListaPreguntas
 	NodoPregunta* primerElemento;
 };
 
+struct CategoriaParaArchivo
+{
+	string nombre;
+	bool habilitada;
+};
 
 struct Categoria
 {
@@ -119,14 +130,33 @@ struct ListaRondas
 	NodoRonda* primerElemento;
 };
 
+struct Juego
+{
+	Categoria* unaCategoria;
+	Pregunta* unaPregunta;
+	Respuesta respuestas[4];
+}
+
 #ifndef funciones
 #define funciones
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos);
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos);
 void recuperarCatPregResp(ListaCategoria* unaListaCat);
+void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias);
 Categoria* inicializarNuevaCategoria();
-bool estaHabilitada(); // Faltan parametros
-int sumarPuntos(); // Faltan parametros
+ListaPreguntas* listaPreguntasCreate();
+ListaRespuestas* listaRespuestasCreate();
+NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta);
+NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta);
+NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria);
+Categoria* categoriaCreate(string nombre);
+Pregunta* preguntaCreate(string descripcion);
+Respuesta* respuestaCreate(bool esCorrecta, string descripcion );
+Pregunta* traerPreguntaHabilitada();
+ListaParticipantes* ingresarParticipantes();
+NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes);
+bool estaHabilitada(); 
+int sumarPuntos(); 
 
 #endif

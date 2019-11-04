@@ -156,6 +156,8 @@ ListaParticipantes* ingresarParticipantes(){
     return participantes;
 }
 
+
+/*
 NodoRonda* buscarUltimaRonda(ListaRondas* rondas){
 	NodoRonda* nodoAuxiliar = rondas->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
@@ -165,12 +167,13 @@ NodoRonda* buscarUltimaRonda(ListaRondas* rondas){
 }
 
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
+
 	NodoParticipante* nodoAuxiliar = participantes->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
 		nodoAuxiliar = nodoAuxiliar->siguiente;
 	}
 	return nodoAuxiliar;	
-}
+}*/
 
 
 
