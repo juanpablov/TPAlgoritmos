@@ -8,8 +8,8 @@ Pregunta* traerPreguntaHabilitada()
 }
 
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
+	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
-	// Participante participanteActual = participantes->participante;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
 		nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
@@ -17,9 +17,7 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
 		nuevo_turno->respuesta = NULL;
 		nuevo_turno->horarioTurno = NULL;
 		agregarTurno(nuevo_turno, turnos);
-
 		participanteAuxiliar->participante->habilitado = 0;
-		// participantes->participante->habilitado = 0;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
 	}
 	participanteAuxiliar = participantes->primerElemento;
@@ -27,6 +25,8 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
 		participanteAuxiliar->participante->habilitado = 1;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
 	}
+	ronda->turnos = turnos;
+	return ronda;
 }
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos){
@@ -76,5 +76,19 @@ ListaParticipantes ingresarParticipantes(){
 }
 
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
-	
+	NodoParticipante* nodoAuxiliar = participantes->primerElemento;
+	while(nodoAuxiliar->siguiente != NULL){
+		nodoAuxiliar = nodoAuxiliar->siguiente;
+	}
+	return nodoAuxiliar;	
 }
+
+
+
+
+
+
+
+
+
+
