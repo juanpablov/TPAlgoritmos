@@ -71,6 +71,7 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos, int n
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
 		nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
+		// =============== HACER FUNCTION TRAER PREGUNTA HABILITADA ===============
 		nuevo_turno->pregunta = traerPreguntaHabilitada();
 		nuevo_turno->respuesta = NULL;
 		nuevo_turno->horarioTurno = NULL;
@@ -87,7 +88,7 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos, int n
 	return ronda;
 }
 
-ListaRondas generarRondas(int cantidadRondas = 5){
+ListaRondas generarRondas(int cantidadRondas, ListaParticipantes* participantes, ListaTurnos* turnos){
 	ListaRondas rondasIniciales = new ListaRondas();
 	for (int i = 0; i < cantidadRondas; ++i)
 	{	

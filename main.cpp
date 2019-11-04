@@ -28,7 +28,24 @@ int main()
 	fread(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
 	
 	
-	
+
+// ====== LOGICA DE TURNOS Y RONDAS DURANTE EL JUEGO =======
+
+	ListaTurnos* turnos = NULL;
+	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego,turnos);
+
+	NodoRonda* rondaAuxiliar = rondasIniciales->primerElemento;
+	while(rondaAuxiliar->siguienteElemento != NULL){
+		NodoTurno* turnoAuxiliar = turnos->primerElemento;
+		while(turnoAuxiliar->siguienteElemento != NULL){
+
+			turnoAuxiliar = turnoAuxiliar->siguienteElemento;
+		}
+
+		rondaAuxiliar = rondaAuxiliar->siguienteElemento;
+	}
+
+
 	
 	return 0;
 }
