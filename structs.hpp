@@ -46,7 +46,7 @@ struct Participante
 	bool habilitado;
 	int puntos;
 	// int posUltPreg;
-	ListaTurnos* turnos;
+	//ListaTurnos* turnos;
 };
 struct NodoParticipante{
 	Participante* participante;
@@ -64,7 +64,6 @@ struct Turno
 	Respuesta* unaRespuesta;
 	string horarioTurno;
 };
-
 struct NodoTurno{
 	Turno* turno;
 	NodoTurno* siguiente;
@@ -86,18 +85,16 @@ struct ListaRondas{
 
 // ========== MODELO FUNCION GENERAR RONDA ==========
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
+	Ronda nueva_ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
-	// Participante participanteActual = participantes->participante;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
-		nuevo_turno = new Turno();
+		Turno nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
 		nuevo_turno->pregunta = traerPreguntaHabilitada();
 		nuevo_turno->respuesta = NULL;
 		nuevo_turno->horarioTurno = NULL;
 		agregarTurno(nuevo_turno, turnos);
-
 		participanteAuxiliar->participante->habilitado = 0;
-		// participantes->participante->habilitado = 0;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
 	}
 	participanteAuxiliar = participantes->primerElemento;
@@ -105,6 +102,8 @@ Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
 		participanteAuxiliar->participante->habilitado = 1;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
 	}
+	nueva_ronda->turnos = turnos;
+	return nueva_ronda;
 }
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos){
