@@ -18,10 +18,10 @@ int main()
 void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias) {
 	//Abro archivo
 	int index = 1;
-	while (index < 100) {
+	while (index < 100) {//Acá iria el !FEOF y todo eso, NO el index que no tiene nada que ver
 		//CategoriaToRead cat  = fread(sizeof(CategoriaToRead))
-		Categoria* unaCategoria = categoriaCreate(cat);
-		//
+		Categoria* unaCategoria = categoriaCreate(cat->descripcion);
+		//agregarCategoriaALista(categorias, unaCategoria);
 		index++;
 	}
 }
