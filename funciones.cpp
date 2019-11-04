@@ -109,7 +109,7 @@ int sumarPuntos()
 	// Completar
 }
 
-ListaParticipantes ingresarParticipantes(){
+ListaParticipantes* ingresarParticipantes(){
 	ListaParticipantes *participantes = new ListaParticipantes();
     for(int i = 0; i < 5; i++){
     	Participante *nuevo_participante = new Participante();
