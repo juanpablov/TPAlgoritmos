@@ -14,29 +14,51 @@ struct Pregunta
 	ListaRespuestas respuestas;
 };
 
-struct ListaPreguntas
+struct NodoPregunta
 {
-	Pregunta* pregunta;
-	ListaPreguntas* siguiente;
+	Pregunta* unaPregunta;
+	NodoPregunta* siguienteElemento;
 };
 
-struct ListaRespuestas
+struct ListaPreguntas
 {
-	Respuesta* respuesta;
-	ListaRespuestas* siguiente;
+	NodoPregunta* primerElemento;
 };
 
 
 struct Categoria
 {
+	string nombre;
 	ListaPregunta* preguntas;
 	bool habilitada;
 };
+
+struct NodoCategoria
+{
+	Categoria* unaCategoria;
+	NodoCategoria* siguienteElemento;
+};
+
+struct ListaCategoria
+{
+	NodoCategoria* primerElemento;
+}
 
 struct Respuesta
 {
 	string descripcion;
 	bool correcta;
+};
+
+struct NodoRespuesta
+{
+	Respuesta* unaRespuesta;
+	NodoRespuesta* siguienteElemento;
+};
+
+struct ListaRespuestas
+{
+	NodoRespuesta* primerElemento;
 };
 
 struct Participante
@@ -48,13 +70,17 @@ struct Participante
 	// int posUltPreg;
 	ListaTurnos* turnos;
 };
-struct NodoParticipante{
+
+struct NodoParticipante
+{
 	Participante* participante;
-	NodoParticipante* siguiente;
-}
-struct ListaParticipantes{
+	NodoParticipante* siguienteElemento;
+};
+
+struct ListaParticipantes
+{
 	NodoParticipante* primerElemento;
-}
+};
 
 struct Turno
 {	
@@ -65,65 +91,41 @@ struct Turno
 	string horarioTurno;
 };
 
-struct NodoTurno{
+struct NodoTurno
+{
 	Turno* turno;
-	NodoTurno* siguiente;
+	NodoTurno* siguienteElemento;
 };
 
 struct ListaTurnos
 {
 	NodoTurno* primerElemento;
-}
-struct Ronda{
+};
+
+struct Ronda
+{
 	int idRonda;
 	ListaTurnos* turnos;
-}
-struct ListaRondas{
-	Ronda* ronda;
-	ListaRondas* siguiente;
-}
+};
 
-
-// ========== MODELO FUNCION GENERAR RONDA ==========
-Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
-	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
-	// Participante participanteActual = participantes->participante;
-	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
-		nuevo_turno = new Turno();
-		nuevo_turno->participante = participanteAuxiliar->participante;
-		nuevo_turno->pregunta = traerPreguntaHabilitada();
-		nuevo_turno->respuesta = NULL;
-		nuevo_turno->horarioTurno = NULL;
-		agregarTurno(nuevo_turno, turnos);
-
-		participanteAuxiliar->participante->habilitado = 0;
-		// participantes->participante->habilitado = 0;
-		participanteAuxiliar = participanteAuxiliar->siguiente;
-	}
-	participanteAuxiliar = participantes->primerElemento;
-	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 0){
-		participanteAuxiliar->participante->habilitado = 1;
-		participanteAuxiliar = participanteAuxiliar->siguiente;
-	}
+struct NodoRonda
+{
+	Ronda* unaRonda;
+	NodoRonda* siguienteElemento;
 }
 
-void agregarTurno(Turno* turno, ListaTurnos* turnos){
-	NodoTurno* nodoAuxiliar = turnos->primerElemento;
-	// agregar chequeo lista vacia 
-	while(nodoAuxiliar->siguiente != NULL){
-		nodoAuxiliar = nodoAuxiliar->siguiente;
-	}
-	NodoTurno* nuevo_nodo_turno = new NodoTurno();
-	nuevo_nodo_turno->turno = turno;
-	nuevo_nodo_turno->siguiente = NULL;
-	nodoAuxiliar->siguiente = nuevo_nodo_turno;
-}
-
-
+struct ListaRondas
+{
+	NodoRonda* primerElemento;
+};
 
 #ifndef funciones
 #define funciones
 
+void agregarTurno(Turno* turno, ListaTurnos* turnos);
+Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos);
+void recuperarCatPregResp(ListaCategoria* unaListaCat);
+Categoria* inicializarNuevaCategoria();
 bool estaHabilitada(); // Faltan parametros
 int sumarPuntos(); // Faltan parametros
 
