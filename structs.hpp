@@ -1,4 +1,4 @@
-#include <string>
+#include <string.h>
 using namespace std;
 
 struct Nodo
@@ -6,43 +6,6 @@ struct Nodo
 	Nodo* siguiente;
 	int info;
 };
-
-struct Pregunta
-{
-	string descripcion;
-	bool habilitada;
-	ListaRespuestas respuestas;
-};
-
-struct NodoPregunta
-{
-	Pregunta* unaPregunta;
-	NodoPregunta* siguienteElemento;
-};
-
-struct ListaPreguntas
-{
-	NodoPregunta* primerElemento;
-};
-
-
-struct Categoria
-{
-	string nombre;
-	ListaPregunta* preguntas;
-	bool habilitada;
-};
-
-struct NodoCategoria
-{
-	Categoria* unaCategoria;
-	NodoCategoria* siguienteElemento;
-};
-
-struct ListaCategoria
-{
-	NodoCategoria* primerElemento;
-}
 
 struct Respuesta
 {
@@ -59,6 +22,56 @@ struct NodoRespuesta
 struct ListaRespuestas
 {
 	NodoRespuesta* primerElemento;
+};
+
+struct PreguntaParaArchivo
+{
+	string descripcion;
+	bool habilitada;
+};
+
+struct Pregunta
+{
+	string descripcion;
+	bool habilitada;
+	//puede ser un array de respuestas?
+	Respuesta respuestas[4];
+	ListaRespuestas respuestas;
+};
+
+struct NodoPregunta
+{
+	Pregunta* unaPregunta;
+	NodoPregunta* siguienteElemento;
+};
+
+struct ListaPreguntas
+{
+	NodoPregunta* primerElemento;
+};
+
+struct CategoriaParaArchivo
+{
+	string nombre;
+	bool habilitada;
+};
+
+struct Categoria
+{
+	string nombre;
+	ListaPreguntas* preguntas;
+	bool habilitada;
+};
+
+struct NodoCategoria
+{
+	Categoria* unaCategoria;
+	NodoCategoria* siguienteElemento;
+};
+
+struct ListaCategoria
+{
+	NodoCategoria* primerElemento;
 };
 
 struct Participante
@@ -104,48 +117,27 @@ struct ListaTurnos
 
 struct Ronda
 {
-	int idRonda;
+	int nroRonda;
 	ListaTurnos* turnos;
-}
-struct ListaRondas{
-	Ronda* ronda;
-	ListaRondas* siguiente;
-}
-
-
-// ========== MODELO FUNCION GENERAR RONDA ==========
-Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos){
-	Ronda nueva_ronda = new Ronda();
-	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
-	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
-		Turno nuevo_turno = new Turno();
-		nuevo_turno->participante = participanteAuxiliar->participante;
-		nuevo_turno->pregunta = traerPreguntaHabilitada();
-		nuevo_turno->respuesta = NULL;
-		nuevo_turno->horarioTurno = NULL;
-		agregarTurno(nuevo_turno, turnos);
-		participanteAuxiliar->participante->habilitado = 0;
-		participanteAuxiliar = participanteAuxiliar->siguiente;
-	}
-	participanteAuxiliar = participantes->primerElemento;
-	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 0){
-		participanteAuxiliar->participante->habilitado = 1;
-		participanteAuxiliar = participanteAuxiliar->siguiente;
-	}
-	nueva_ronda->turnos = turnos;
-	return nueva_ronda;
-}
+};
 
 struct NodoRonda
 {
 	Ronda* unaRonda;
 	NodoRonda* siguienteElemento;
-}
+};
 
 struct ListaRondas
 {
 	NodoRonda* primerElemento;
 };
+
+struct Juego
+{
+	Categoria* unaCategoria;
+	Pregunta* unaPregunta;
+	Respuesta respuestas[4];
+}
 
 #ifndef funciones
 #define funciones
@@ -153,8 +145,20 @@ struct ListaRondas
 void agregarTurno(Turno* turno, ListaTurnos* turnos);
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos);
 void recuperarCatPregResp(ListaCategoria* unaListaCat);
+void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias);
 Categoria* inicializarNuevaCategoria();
-bool estaHabilitada(); // Faltan parametros
-int sumarPuntos(); // Faltan parametros
+ListaPreguntas* listaPreguntasCreate();
+ListaRespuestas* listaRespuestasCreate();
+NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta);
+NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta);
+NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria);
+Categoria* categoriaCreate(string nombre);
+Pregunta* preguntaCreate(string descripcion);
+Respuesta* respuestaCreate(bool esCorrecta, string descripcion );
+Pregunta* traerPreguntaHabilitada();
+ListaParticipantes* ingresarParticipantes();
+NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes);
+bool estaHabilitada(); 
+int sumarPuntos(); 
 
 #endif
