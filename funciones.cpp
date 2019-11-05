@@ -3,40 +3,46 @@
 using namespace std;
 
 
-ListaPreguntas* listaPreguntasCreate() {
+ListaPreguntas* listaPreguntasCreate()
+{
 	ListaPreguntas* listaPreguntas = new ListaPreguntas();
 	listaPreguntas->primerElemento = NULL;
 	return listaPreguntas;
 }
 
-ListaRespuestas* listaRespuestasCreate() {
+ListaRespuestas* listaRespuestasCreate()
+{
 	ListaRespuestas* respuestas = new ListaRespuestas();
 	respuestas->primerElemento = NULL;
 	return respuestas;
 }
 
-NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta) {
+NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta)
+{
 	NodoRespuesta* nuevoNodo = new NodoRespuesta();
 	nuevoNodo->unaRespuesta = unaRespuesta;
-	nuevoNodo->siguienteElemento = NULL
+	nuevoNodo->siguienteElemento = NULL;
 	return nuevoNodo;
-}
+};
 
-NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta) {
+NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta)
+{
 	NodoPregunta* nuevoNodo = new NodoPregunta();
 	nuevoNodo->unaPregunta = unaPregunta;
 	nuevoNodo->siguienteElemento = NULL;
 	return nuevoNodo;
 }
 
-NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria) {
+NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria)
+{
 	NodoCategoria* nuevoNodo = new NodoCategoria();
 	nuevoNodo->unaCategoria = unaCategoria;
 	nuevoNodo->siguienteElemento = NULL;
 	return nuevoNodo;
 }
 
-Categoria* categoriaCreate(string nombre) {
+Categoria* categoriaCreate(string nombre)
+{
 	Categoria* nuevaCategoria = new Categoria();
 	nuevaCategoria->habilitada = true;
 	nuevaCategoria->nombre = nombre;
@@ -44,7 +50,8 @@ Categoria* categoriaCreate(string nombre) {
 	return nuevaCategoria;
 }
 
-Pregunta* preguntaCreate(string descripcion) {
+Pregunta* preguntaCreate(string descripcion)
+{
 	Pregunta* nuevaPregunta = new Pregunta();
 	nuevaPregunta->descripcion = descripcion;
 	nuevaPregunta->habilitada = true;
@@ -52,7 +59,8 @@ Pregunta* preguntaCreate(string descripcion) {
 	return nuevaPregunta;
 }
 
-Respuesta* respuestaCreate(bool esCorrecta, string descripcion ) {
+Respuesta* respuestaCreate(bool esCorrecta, string descripcion )
+{
 	Respuesta* unaRespuesta = new Respuesta();
 	unaRespuesta->correcta = esCorrecta;
 	unaRespuesta->descripcion = descripcion;
