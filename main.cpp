@@ -20,7 +20,7 @@ int main()
 	unaCategoria.nombre = "Historia";
 	unaCategoria.nombre = "Geografia";
 	unaCategoria.nombre = "Arte";
-	unaPregunta.descripcion = "¿En que anio se desarrollo la guerra de Malvinas?";
+	unaPregunta.descripcion = "?En que anio se desarrollo la guerra de Malvinas?";
 	
 	fwrite(&unaCategoria, sizeof(Categoria), 1, archivoContenido);
 	

@@ -73,7 +73,33 @@ Pregunta* traerPreguntaHabilitada()
 	
 }
 
-Ronda generarRonda(ListaParticipantes* participantes, int nroRonda){
+
+Pregunta traerPreguntaHabilitada(ListaCategorias* categorias){
+	NodoCategoria* categoriaAuxiliar = categorias->primerElemento;
+	NodoPregunta* preguntaAuxiliar = NULL;
+	while(categoriaAuxiliar != NULL && categoriaAuxiliar->unaCategoria->habilitada == 0){
+		categoriaAuxiliar = categoriaAuxiliar->siguienteElemento;
+	}
+	if (categoriaAuxiliar != NULL)
+	{
+		preguntaAuxiliar = categoriaAuxiliar->unaCategoria->preguntas->primerElemento;
+		while(preguntaAuxiliar != NULL && preguntaAuxiliar->unaPregunta->habilitada == 0){
+			preguntaAuxiliar = preguntaAuxiliar->siguienteElemento;
+		}
+		if(preguntaAuxiliar != NULL){
+			preguntaAuxiliar->unaPregunta->habilitada = 0;
+			// Deshabilito la categoría si es la última pregunta.
+			if(preguntaAuxiliar->siguienteElemento == NULL){
+				categoriaAuxiliar->unaCategoria->habilitada = 0;
+			}
+		}
+	} 
+	return preguntaAuxiliar;
+}
+
+
+
+Ronda generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCategorias* categorias){
 	ListaTurnos* turnos = new ListaTurnos();
 	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
@@ -81,7 +107,7 @@ Ronda generarRonda(ListaParticipantes* participantes, int nroRonda){
 		nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
 		// =============== HACER FUNCTION TRAER PREGUNTA HABILITADA ===============
-		nuevo_turno->pregunta = traerPreguntaHabilitada();
+		nuevo_turno->pregunta = traerPreguntaHabilitada(categorias); //Chequear si devuelve pregunta nula.
 		nuevo_turno->respuesta = NULL;
 		nuevo_turno->horarioTurno = NULL;
 		agregarTurno(nuevo_turno, turnos);
