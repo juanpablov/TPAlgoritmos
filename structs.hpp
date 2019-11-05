@@ -24,12 +24,6 @@ struct ListaRespuestas
 	NodoRespuesta* primerElemento;
 };
 
-struct PreguntaParaArchivo
-{
-	string descripcion;
-	bool habilitada;
-};
-
 struct Pregunta
 {
 	string descripcion;
@@ -48,12 +42,6 @@ struct NodoPregunta
 struct ListaPreguntas
 {
 	NodoPregunta* primerElemento;
-};
-
-struct CategoriaParaArchivo
-{
-	string nombre;
-	bool habilitada;
 };
 
 struct Categoria
@@ -134,10 +122,12 @@ struct ListaRondas
 
 struct Juego
 {
-	Categoria* unaCategoria;
-	Pregunta* unaPregunta;
-	Respuesta respuestas[4];
-}
+	char nombreCategoria[50];
+	char descripcionPregunta[150];
+	char descripcionRespuesta[150];
+	int idCategoria, idPregunta;
+	bool esCorrecta;
+};
 
 #ifndef funciones
 #define funciones

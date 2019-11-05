@@ -5,32 +5,147 @@ using namespace std;
 
 int main()
 {
-	recuperarCatPregResp(unaListaCat);
+	/*recuperarCatPregResp(unaListaCat);
 
 	ListaCategoria* unaListaCat = new ListaCategoria();
 	iniciarCategoriasPreguntasRespuestas(unaListaCat);
-	ListaParticipantes* participantes =  ingresarParticipantes();
+	ListaParticipantes* participantes =  ingresarParticipantes();*/
 
 	FILE* archivoContenido = fopen("contenido.dat", "rb");
 
-	Categoria unaCategoria;
-	PreguntaParaArchivo unaPregunta;
-	RespuestaParaArchivo unaRespuesta;
+	Juego* unJuego = new Juego();
+	int idCategoriaAnterior, idPreguntaAnterior;
+	
+	fread(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	while(!feof(archivoContenido)
+	{
+		idCategoriaAnterior = unJuego->idCategoria;
+		idPreguntaAnterior = unJuego->idPregunta;
+		while(!feof(archivoContenido) && idCategoriaAnterior == unJuego->idCategoria)
+		{
+			while(!feof(archivoContenido) && idPreguntaAnterior == unJuego->idPregunta)
+			{
+				fread(unJuego, sizeof(Juego), 1, archivoContenido);
+			}
+		}
+	}
+	
+	fclose(archivoContenido);
+	
+	
+	/*strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Como se llamo la bomba lanzada en la ciudad de Hiroshima el 6 de Agosto de 1945?");
+	strcpy(unJuego->descripcionRespuesta, "A. Fat Man");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Como se llamo la bomba lanzada en la ciudad de Hiroshima el 6 de Agosto de 1945?");
+	strcpy(unJuego->descripcionRespuesta, "B. Little Boy");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿En que anio se desarrollo la guerra de Malvinas?");
+	strcpy(unJuego->descripcionRespuesta, "A. 1980");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿En que anio se desarrollo la guerra de Malvinas?");
+	strcpy(unJuego->descripcionRespuesta, "B. 1982");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Geografia");
+	strcpy(unJuego->descripcionPregunta, "¿En que frontera se encuentra el Monte Everest?");
+	strcpy(unJuego->descripcionRespuesta, "A. Nepal e India");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 2;
+	unJuego->idPregunta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Geografia");
+	strcpy(unJuego->descripcionPregunta, "¿En que frontera se encuentra el Monte Everest?");
+	strcpy(unJuego->descripcionRespuesta, "B. China y Nepal");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 2;
+	unJuego->idPregunta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Geografia");
+	strcpy(unJuego->descripcionPregunta, "¿Cual es el rio mas grande?");
+	strcpy(unJuego->descripcionRespuesta, "A. Rio Nilo");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 2;
+	unJuego->idPregunta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Geografia");
+	strcpy(unJuego->descripcionPregunta, "¿Cual es el rio mas grande?");
+	strcpy(unJuego->descripcionRespuesta, "B. Rio Amazonas");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 2;
+	unJuego->idPregunta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Entretenimiento");
+	strcpy(unJuego->descripcionPregunta, "¿Cual es el apellido de Apu en Los Simpsons?");
+	strcpy(unJuego->descripcionRespuesta, "A. Nahasapeemapetilon");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 3;
+	unJuego->idPregunta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Entretenimiento");
+	strcpy(unJuego->descripcionPregunta, "¿Cual es el apellido de Apu en Los Simpsons?");
+	strcpy(unJuego->descripcionRespuesta, "B. Nahasapasapetilon");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 3;
+	unJuego->idPregunta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Entretenimiento");
+	strcpy(unJuego->descripcionPregunta, "¿Quien realiza la voz de El Burro en la pelicula de Shrek?");
+	strcpy(unJuego->descripcionRespuesta, "A. Cody Cameron");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 3;
+	unJuego->idPregunta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Entretenimiento");
+	strcpy(unJuego->descripcionPregunta, "¿Quien realiza la voz de El Burro en la pelicula de Shrek?");
+	strcpy(unJuego->descripcionRespuesta, "B. Eddie Murphy");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 3;
+	unJuego->idPregunta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);*/
 
-	unaCategoria.nombre = "Historia";
-	unaCategoria.nombre = "Geografia";
-	unaCategoria.nombre = "Arte";
-	unaPregunta.descripcion = "¿En que anio se desarrollo la guerra de Malvinas?";
 	
-	fwrite(&unaCategoria, sizeof(Categoria), 1, archivoContenido);
+	/*strcpy(unJuego->nombreCategoria, "Geografia");
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Deportes");
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Arte");
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Ciencia");
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Entretenimiento");
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);*/
 	
-	//fread(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
-	//cout<<unaPregunta.descripcion;
+	/*while (fread(unJuego, sizeof(Juego), 1, archivoContenido))
+	{
+		cout<<unJuego->nombreCategoria;
+	}*/
+	
 
 	
 // ====== LOGICA DE TURNOS Y RONDAS DURANTE EL JUEGO =======
 
-	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego);
+   	/*ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego);
 	NodoRonda* rondaAuxiliar = rondasIniciales->primerElemento;
 
 	while(rondaAuxiliar->siguienteElemento != NULL){
@@ -54,7 +169,7 @@ int main()
 		}
 
 		rondaAuxiliar = rondaAuxiliar->siguienteElemento;
-	}
+	}*/
 	return 0;
 }
 
