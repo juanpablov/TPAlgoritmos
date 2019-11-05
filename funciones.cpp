@@ -210,5 +210,36 @@ NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
 	return nodoAuxiliar;	
 }
 
+void opcionesTurno(Participante* participante){
+		cout << "1. Ver puntaje total" << endl;
+		cout << "2. Ver preguntas respondidas" <<endl;
+		cout << "3. Siguiente Jugador" << endl;
+		int opcionElegida;
+		cin >> opcionElegida;
+
+		while(opcionElegida != 1 && opcionElegida != 2 && opcionElegida != 3)
+		{
+			cout << "Opcion invalida. Reingrese la opcion." << endl;
+			cin >> opcionElegida; 
+		}
+		switch(opcionElegida){
+			case 1:
+
+				cout << "El puntaje de " << participante->nombre << " es " << participante->puntos << endl;
+				opcionesTurno(participante);
+				break;
+			case 2:
+				//Traer turnos del participante
+				opcionesTurno(participante);
+				break;
+			case 3: 
+				return;
+		}
+
+}
+
+ListaTurnos turnosJugadosDelParticipante(Participante* participante){
+	
+}
 
 
