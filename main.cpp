@@ -5,13 +5,13 @@ using namespace std;
 int main()
 {
 
-	//ListaCategoria* unaListaCat = new ListaCategoria();
+	ListaCategoria* unaListaCat = new ListaCategoria();
 
-	//recuperarCatPregResp(unaListaCat);
+	recuperarCatPregResp(unaListaCat);
 
-	//ListaCategoria* unaListaCat = new ListaCategoria();
-	//iniciarCategoriasPreguntasRespuestas(unaListaCat);
-	//ListaParticipantes* participantes =  ingresarParticipantes();
+	ListaCategoria* unaListaCat = new ListaCategoria();
+	iniciarCategoriasPreguntasRespuestas(unaListaCat);
+	ListaParticipantes* participantes =  ingresarParticipantes();
 
 	FILE* archivoContenido = fopen("contenido.dat", "rb");
 
@@ -32,12 +32,25 @@ int main()
 // ====== LOGICA DE TURNOS Y RONDAS DURANTE EL JUEGO =======
 
 	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego);
-
 	NodoRonda* rondaAuxiliar = rondasIniciales->primerElemento;
+
 	while(rondaAuxiliar->siguienteElemento != NULL){
 		NodoTurno* turnoAuxiliar = rondaAuxiliar->turnos->primerElemento;
 		while(turnoAuxiliar->siguienteElemento != NULL){
-			cout << turnoAuxiliar->
+			Respuesta respuestaJugador = new Respuesta();
+			cout << turnoAuxiliar->unaPregunta->descripcion << endl;
+			for (int i = 0; i < 4; ++i)
+			{
+				cout << turnoAuxiliar->respuestas[i]<<endl;
+			}
+			cout << Elija su respuesta << endl;
+			cin >> respuestaJugador;
+
+			if (respuestaJugador->correcta == 1)
+			{
+				turnoAuxiliar->participante->puntos = puntos + 1;
+			}
+
 			turnoAuxiliar = turnoAuxiliar->siguienteElemento;
 		}
 
