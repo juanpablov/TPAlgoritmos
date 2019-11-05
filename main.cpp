@@ -34,18 +34,25 @@ int main()
 	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego);
 	NodoRonda* rondaAuxiliar = rondasIniciales->primerElemento;
 
-	while(rondaAuxiliar->siguienteElemento != NULL){
+	// ========== Empiezo a recorrer las rondas =========
+	while(rondaAuxiliar != NULL){
 		NodoTurno* turnoAuxiliar = rondaAuxiliar->turnos->primerElemento;
-		while(turnoAuxiliar->siguienteElemento != NULL){
+		// ======== Empiezo a recorrer los turnos de cada ronda ======
+		while(turnoAuxiliar != NULL){. //Tiene que ser turnoAuxiliar->siguiente o turnoAuxiliar
 			Respuesta respuestaJugador = new Respuesta();
 			cout << turnoAuxiliar->unaPregunta->descripcion << endl;
 			for (int i = 0; i < 4; ++i)
 			{
-				cout << turnoAuxiliar->respuestas[i]<<endl;
+				cout << turnoAuxiliar->respuestas[i]->descripcion<<endl;
 			}
 			cout << Elija su respuesta << endl;
-			cin >> respuestaJugador;
-
+			int nroRespuesta = NULL;
+			cin >> nroRespuesta;
+			while(nroRespuesta != 0 && roRespuesta != 1 && roRespuesta != 2 && roRespuesta != 3){
+				cout << "Respuesta inválida. Ingrese su respuesta nuevamente." << endl;
+				cin >> nroRespuesta;
+			}
+			respuestaJugador = turnoAuxiliar->respuestas[nroRespuesta];
 			if (respuestaJugador->correcta == 1)
 			{
 				turnoAuxiliar->participante->puntos = puntos + 1;

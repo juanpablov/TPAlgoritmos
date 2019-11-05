@@ -97,7 +97,7 @@ ListaRondas generarRondas(int cantidadRondas, ListaParticipantes* participantes)
 		NodoRonda *nodo_ronda = new NodoRonda();
         nodo_ronda->unaRonda = nueva_ronda;
         nodo_ronda->siguiente = NULL;
-        if (i == 1)
+        if (i == 0)
         {
         	rondasIniciales->primerElemento = nodo_ronda;
 
@@ -158,7 +158,7 @@ ListaParticipantes* ingresarParticipantes(){
 }
 
 
-/*
+
 NodoRonda* buscarUltimaRonda(ListaRondas* rondas){
 	NodoRonda* nodoAuxiliar = rondas->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
@@ -174,7 +174,7 @@ NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
 		nodoAuxiliar = nodoAuxiliar->siguiente;
 	}
 	return nodoAuxiliar;	
-}*/
+}
 
 
 
