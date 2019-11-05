@@ -73,7 +73,33 @@ Pregunta* traerPreguntaHabilitada()
 	
 }
 
-Ronda generarRonda(ListaParticipantes* participantes, int nroRonda){
+
+Pregunta traerPreguntaHabilitada(ListaCategorias* categorias){
+	NodoCategoria* categoriaAuxiliar = categorias->primerElemento;
+	NodoPregunta* preguntaAuxiliar = NULL;
+	while(categoriaAuxiliar != NULL && categoriaAuxiliar->unaCategoria->habilitada == 0){
+		categoriaAuxiliar = categoriaAuxiliar->siguienteElemento;
+	}
+	if (categoriaAuxiliar != NULL)
+	{
+		preguntaAuxiliar = categoriaAuxiliar->unaCategoria->preguntas->primerElemento;
+		while(preguntaAuxiliar != NULL && preguntaAuxiliar->unaPregunta->habilitada == 0){
+			preguntaAuxiliar = preguntaAuxiliar->siguienteElemento;
+		}
+		if(preguntaAuxiliar != NULL){
+			preguntaAuxiliar->unaPregunta->habilitada = 0;
+			// Deshabilito la categoría si es la última pregunta.
+			if(preguntaAuxiliar->siguienteElemento == NULL){
+				categoriaAuxiliar->unaCategoria->habilitada = 0;
+			}
+		}
+	} 
+	return preguntaAuxiliar;
+}
+
+
+
+Ronda generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCategorias* categorias){
 	ListaTurnos* turnos = new ListaTurnos();
 	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
@@ -81,7 +107,7 @@ Ronda generarRonda(ListaParticipantes* participantes, int nroRonda){
 		nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
 		// =============== HACER FUNCTION TRAER PREGUNTA HABILITADA ===============
-		nuevo_turno->pregunta = traerPreguntaHabilitada();
+		nuevo_turno->pregunta = traerPreguntaHabilitada(categorias); //Chequear si devuelve pregunta nula.
 		nuevo_turno->respuesta = NULL;
 		nuevo_turno->horarioTurno = NULL;
 		agregarTurno(nuevo_turno, turnos);
@@ -105,7 +131,7 @@ ListaRondas generarRondas(int cantidadRondas, ListaParticipantes* participantes)
 		NodoRonda *nodo_ronda = new NodoRonda();
         nodo_ronda->unaRonda = nueva_ronda;
         nodo_ronda->siguiente = NULL;
-        if (i == 1)
+        if (i == 0)
         {
         	rondasIniciales->primerElemento = nodo_ronda;
 
@@ -166,7 +192,7 @@ ListaParticipantes* ingresarParticipantes(){
 }
 
 
-/*
+
 NodoRonda* buscarUltimaRonda(ListaRondas* rondas){
 	NodoRonda* nodoAuxiliar = rondas->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
@@ -182,7 +208,38 @@ NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes){
 		nodoAuxiliar = nodoAuxiliar->siguiente;
 	}
 	return nodoAuxiliar;	
-}*/
+}
 
+void opcionesTurno(Participante* participante){
+		cout << "1. Ver puntaje total" << endl;
+		cout << "2. Ver preguntas respondidas" <<endl;
+		cout << "3. Siguiente Jugador" << endl;
+		int opcionElegida;
+		cin >> opcionElegida;
+
+		while(opcionElegida != 1 && opcionElegida != 2 && opcionElegida != 3)
+		{
+			cout << "Opcion invalida. Reingrese la opcion." << endl;
+			cin >> opcionElegida; 
+		}
+		switch(opcionElegida){
+			case 1:
+
+				cout << "El puntaje de " << participante->nombre << " es " << participante->puntos << endl;
+				opcionesTurno(participante);
+				break;
+			case 2:
+				//Traer turnos del participante
+				opcionesTurno(participante);
+				break;
+			case 3: 
+				return;
+		}
+
+}
+
+ListaTurnos turnosJugadosDelParticipante(Participante* participante){
+	
+}
 
 
