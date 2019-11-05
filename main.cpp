@@ -1,12 +1,10 @@
 #include "structs.hpp"
+#include <string.h>
 #include <iostream>
 using namespace std;
 
 int main()
 {
-
-	ListaCategoria* unaListaCat = new ListaCategoria();
-
 	recuperarCatPregResp(unaListaCat);
 
 	ListaCategoria* unaListaCat = new ListaCategoria();
@@ -16,19 +14,20 @@ int main()
 	FILE* archivoContenido = fopen("contenido.dat", "rb");
 
 	Categoria unaCategoria;
-	Pregunta unaPregunta;
-	Respuesta unaRespuesta;
+	PreguntaParaArchivo unaPregunta;
+	RespuestaParaArchivo unaRespuesta;
 
 	unaCategoria.nombre = "Historia";
 	unaCategoria.nombre = "Geografia";
 	unaCategoria.nombre = "Arte";
-	unaPregunta.descripcion = "En que anio se desarrollo la guerra de Malvinas?";
-
-	fwrite(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
-
+	unaPregunta.descripcion = "¿En que anio se desarrollo la guerra de Malvinas?";
+	
+	fwrite(&unaCategoria, sizeof(Categoria), 1, archivoContenido);
+	
 	//fread(&unaPregunta, sizeof(Pregunta), 1, archivoContenido);
 	//cout<<unaPregunta.descripcion;
 
+	
 // ====== LOGICA DE TURNOS Y RONDAS DURANTE EL JUEGO =======
 
 	ListaRondas* rondasIniciales = generarRondas(5,participantesEnJuego);
