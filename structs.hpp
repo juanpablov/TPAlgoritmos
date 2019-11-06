@@ -148,6 +148,9 @@ Respuesta* respuestaCreate(bool esCorrecta, string descripcion );
 Pregunta* traerPreguntaHabilitada();
 ListaParticipantes* ingresarParticipantes();
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes);
+void turnosJugados(Participante* participante, ListaRondas* rondas);
+void opcionesTurno(Participante* participante, ListaRondas* rondas);
+
 bool estaHabilitada(); 
 int sumarPuntos(); 
 
