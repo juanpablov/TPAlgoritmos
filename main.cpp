@@ -1,5 +1,5 @@
-#include "structs.hpp"
-#include <string.h>
+#include "structs.h"
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -18,7 +18,7 @@ int main()
 	
 	fread(unJuego, sizeof(Juego), 1, archivoContenido);
 	
-	while(!feof(archivoContenido)
+	while(!feof(archivoContenido))
 	{
 		idCategoriaAnterior = unJuego->idCategoria;
 		idPreguntaAnterior = unJuego->idPregunta;
@@ -26,9 +26,12 @@ int main()
 		{
 			while(!feof(archivoContenido) && idPreguntaAnterior == unJuego->idPregunta)
 			{
+				cout<<unJuego->descripcionPregunta;
 				fread(unJuego, sizeof(Juego), 1, archivoContenido);
 			}
+			
 		}
+			
 	}
 	
 	fclose(archivoContenido);

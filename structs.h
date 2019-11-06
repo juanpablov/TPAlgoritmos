@@ -1,11 +1,5 @@
-#include <string.h>
+#include <string>
 using namespace std;
-
-struct Nodo
-{
-	Nodo* siguiente;
-	int info;
-};
 
 struct Respuesta
 {
@@ -29,8 +23,8 @@ struct Pregunta
 	string descripcion;
 	bool habilitada;
 	//puede ser un array de respuestas?
-	Respuesta respuestas[4];
-	ListaRespuestas respuestas;
+	Respuesta* respuestas[4];
+	ListaRespuestas* respuestass;
 };
 
 struct NodoPregunta
