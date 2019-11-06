@@ -158,7 +158,7 @@ Ronda generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCategor
 	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
-		nuevo_turno = new Turno();
+		Turno* nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
 		// =============== HACER FUNCTION TRAER PREGUNTA HABILITADA ===============
 		nuevo_turno->pregunta = traerPreguntaHabilitada(categorias); //Chequear si devuelve pregunta nula.
@@ -249,7 +249,6 @@ ListaParticipantes* ingresarParticipantes()
 }
 
 
-
 NodoRonda* buscarUltimaRonda(ListaRondas* rondas)
 {
 	NodoRonda* nodoAuxiliar = rondas->primerElemento;
@@ -269,8 +268,8 @@ d{
 	return nodoAuxiliar;	
 }
 
-void opcionesTurno(Participante* participante){
-		cout << "1. Ver puntaje total" << endl;
+void opcionesTurno(Participante* participante, ListaRondas* rondas){
+		cout << "1. Ver mi puntaje total" << endl;
 		cout << "2. Ver preguntas respondidas" <<endl;
 		cout << "3. Siguiente Jugador" << endl;
 		int opcionElegida;
@@ -283,12 +282,11 @@ void opcionesTurno(Participante* participante){
 		}
 		switch(opcionElegida){
 			case 1:
-
 				cout << "El puntaje de " << participante->nombre << " es " << participante->puntos << endl;
 				opcionesTurno(participante);
 				break;
 			case 2:
-				//Traer turnos del participante
+				turnosJugados(participante, rondas);
 				opcionesTurno(participante);
 				break;
 			case 3: 
@@ -337,6 +335,37 @@ ListaCategorias* iniciarCategoriasPreguntasRespuestas()
 	}
 	
 	fclose(archivoContenido);
+
+void turnosJugados(Participante* participante, ListaRondas* rondas){
+	NodoRonda* rondaAuxiliar = rondas->primerElemento;
+	int contadorRespuestas = 0;
+	while(rondaAuxiliar != NULL){
+		NodoTurno* turnoAuxiliar = rondaAuxiliar->turnos->primerElemento;
+		while(turnoAuxiliar != NULL){
+			if (participante->idParticipante == turnoAuxiliar->turno->participante->idParticipante)
+			{
+				if (turnoAuxiliar->turno->unaRespuesta != NULL)
+				{
+					contadorRespuestas++;
+					cout << "Datos de la pregunta nro " << contadorRespuestas << "del participante.";
+					cout << turnoAuxiliar->turno->unaPregunta->descripcion << endl;
+					cout << "Su respuesta fue: " << endl;
+					cout << turnoAuxiliar->turno->unaRespuesta->descripcion << endl;
+					if (turnoAuxiliar->turno->unaRespuesta->correcta == 1)
+					{
+						cout << "La respuesta fue CORRECTA" << endl;
+					} else{
+						cout << "La respuesta fue INCORRECTA" << endl;
+
+					}
+				}
+			}
+			turnoAuxiliar = turnoAuxiliar->siguienteElemento;
+		}
+		rondaAuxiliar = rondaAuxiliar->siguienteElemento;
+	}
+	return;
+
 }
 
 /*ListaTurnos turnosJugadosDelParticipante(Participante* participante){
