@@ -1,11 +1,5 @@
-#include <string.h>
+#include <string>
 using namespace std;
-
-struct Nodo
-{
-	Nodo* siguiente;
-	int info;
-};
 
 struct Respuesta
 {
@@ -29,8 +23,8 @@ struct Pregunta
 	string descripcion;
 	bool habilitada;
 	//puede ser un array de respuestas?
-	Respuesta respuestas[4];
-	ListaRespuestas respuestas;
+	Respuesta* respuestas[4];
+	ListaRespuestas* respuestass;
 };
 
 struct NodoPregunta
@@ -125,7 +119,7 @@ struct Juego
 	char nombreCategoria[50];
 	char descripcionPregunta[150];
 	char descripcionRespuesta[150];
-	int idCategoria, idPregunta;
+	int idCategoria, idPregunta, idRespuesta;
 	bool esCorrecta;
 };
 
@@ -135,7 +129,7 @@ struct Juego
 void agregarTurno(Turno* turno, ListaTurnos* turnos);
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos);
 void recuperarCatPregResp(ListaCategoria* unaListaCat);
-void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias);
+ListaCategorias* iniciarCategoriasPreguntasRespuestas();
 Categoria* inicializarNuevaCategoria();
 ListaPreguntas* listaPreguntasCreate();
 ListaRespuestas* listaRespuestasCreate();
@@ -148,9 +142,10 @@ Respuesta* respuestaCreate(bool esCorrecta, string descripcion );
 Pregunta* traerPreguntaHabilitada();
 ListaParticipantes* ingresarParticipantes();
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes);
-void turnosJugados(Participante* participante, ListaRondas* rondas);
-void opcionesTurno(Participante* participante, ListaRondas* rondas);
-
+void listaCategoriaAgregarElemento(ListaCategoria *unaLista, Categoria *unaCategoria);
+NodoCategoria* listaCategoriaUltimoElemento(ListaCategoria *unaLista);
+NodoPregunta* listaPreguntasUltimoElemento(ListaPreguntas* unaLista);
+void listaPreguntasAgregarElemento(ListaPreguntas* unaLista, Pregunta* unaPregunta);
 bool estaHabilitada(); 
 int sumarPuntos(); 
 
