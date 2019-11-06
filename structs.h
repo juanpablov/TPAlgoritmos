@@ -119,7 +119,7 @@ struct Juego
 	char nombreCategoria[50];
 	char descripcionPregunta[150];
 	char descripcionRespuesta[150];
-	int idCategoria, idPregunta;
+	int idCategoria, idPregunta, idRespuesta;
 	bool esCorrecta;
 };
 
@@ -129,7 +129,7 @@ struct Juego
 void agregarTurno(Turno* turno, ListaTurnos* turnos);
 Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos);
 void recuperarCatPregResp(ListaCategoria* unaListaCat);
-void iniciarCategoriasPreguntasRespuestas(ListaCategoria* categorias);
+ListaCategorias* iniciarCategoriasPreguntasRespuestas();
 Categoria* inicializarNuevaCategoria();
 ListaPreguntas* listaPreguntasCreate();
 ListaRespuestas* listaRespuestasCreate();
@@ -142,6 +142,10 @@ Respuesta* respuestaCreate(bool esCorrecta, string descripcion );
 Pregunta* traerPreguntaHabilitada();
 ListaParticipantes* ingresarParticipantes();
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes);
+void listaCategoriaAgregarElemento(ListaCategoria *unaLista, Categoria *unaCategoria);
+NodoCategoria* listaCategoriaUltimoElemento(ListaCategoria *unaLista);
+NodoPregunta* listaPreguntasUltimoElemento(ListaPreguntas* unaLista);
+void listaPreguntasAgregarElemento(ListaPreguntas* unaLista, Pregunta* unaPregunta);
 bool estaHabilitada(); 
 int sumarPuntos(); 
 
