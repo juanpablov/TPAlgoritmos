@@ -11,38 +11,18 @@ int main()
 	iniciarCategoriasPreguntasRespuestas(unaListaCat);
 	ListaParticipantes* participantes =  ingresarParticipantes();*/
 
-	FILE* archivoContenido = fopen("contenido.dat", "rb");
-
-	Juego* unJuego = new Juego();
-	int idCategoriaAnterior, idPreguntaAnterior;
+	//ListaCategoria *listaCategoria = new listaCategoria();
 	
-	fread(unJuego, sizeof(Juego), 1, archivoContenido);
+	ListaCategorias* iniciar;
+	iniciar = iniciarCategoriasPreguntasRespuestas();
 	
-	while(!feof(archivoContenido))
-	{
-		idCategoriaAnterior = unJuego->idCategoria;
-		idPreguntaAnterior = unJuego->idPregunta;
-		while(!feof(archivoContenido) && idCategoriaAnterior == unJuego->idCategoria)
-		{
-			while(!feof(archivoContenido) && idPreguntaAnterior == unJuego->idPregunta)
-			{
-				cout<<unJuego->descripcionPregunta;
-				fread(unJuego, sizeof(Juego), 1, archivoContenido);
-			}
-			
-		}
-			
-	}
-	
-	fclose(archivoContenido);
-	
-	
-	/*strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->nombreCategoria, "Historia");
 	strcpy(unJuego->descripcionPregunta, "¿Como se llamo la bomba lanzada en la ciudad de Hiroshima el 6 de Agosto de 1945?");
 	strcpy(unJuego->descripcionRespuesta, "A. Fat Man");
 	unJuego->esCorrecta = false;
 	unJuego->idCategoria = 1;
 	unJuego->idPregunta = 1;
+	unJuego->idRespuesta = 1;
 	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
 	strcpy(unJuego->nombreCategoria, "Historia");
 	strcpy(unJuego->descripcionPregunta, "¿Como se llamo la bomba lanzada en la ciudad de Hiroshima el 6 de Agosto de 1945?");
@@ -50,6 +30,23 @@ int main()
 	unJuego->esCorrecta = true;
 	unJuego->idCategoria = 1;
 	unJuego->idPregunta = 1;
+	unJuego->idRespuesta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Como se llamo la bomba lanzada en la ciudad de Hiroshima el 6 de Agosto de 1945?");
+	strcpy(unJuego->descripcionRespuesta, "C. Enola Gay");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 1;
+	unJuego->idRespuesta = 3;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Como se llamo la bomba lanzada en la ciudad de Hiroshima el 6 de Agosto de 1945?");
+	strcpy(unJuego->descripcionRespuesta, "D. Luftwaffe");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 1;
+	unJuego->idRespuesta = 4;
 	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
 	
 	strcpy(unJuego->nombreCategoria, "Historia");
@@ -58,6 +55,7 @@ int main()
 	unJuego->esCorrecta = false;
 	unJuego->idCategoria = 1;
 	unJuego->idPregunta = 2;
+	unJuego->idRespuesta = 1;
 	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
 	strcpy(unJuego->nombreCategoria, "Historia");
 	strcpy(unJuego->descripcionPregunta, "¿En que anio se desarrollo la guerra de Malvinas?");
@@ -65,6 +63,155 @@ int main()
 	unJuego->esCorrecta = true;
 	unJuego->idCategoria = 1;
 	unJuego->idPregunta = 2;
+	unJuego->idRespuesta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿En que anio se desarrollo la guerra de Malvinas?");
+	strcpy(unJuego->descripcionRespuesta, "C. 1979");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 1;
+	unJuego->idRespuesta = 3;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿En que anio se desarrollo la guerra de Malvinas?");
+	strcpy(unJuego->descripcionRespuesta, "D. 1983");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 1;
+	unJuego->idRespuesta = 4;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cuál fue la capital del Imperio Inca?");
+	strcpy(unJuego->descripcionRespuesta, "A. Cuzco");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 3;
+	unJuego->idRespuesta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cuál fue la capital del Imperio Inca?");
+	strcpy(unJuego->descripcionRespuesta, "B. Quito");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 3;
+	unJuego->idRespuesta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cuál fue la capital del Imperio Inca?");
+	strcpy(unJuego->descripcionRespuesta, "C. La Paz");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 3;
+	unJuego->idRespuesta = 3;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cuál fue la capital del Imperio Inca?");
+	strcpy(unJuego->descripcionRespuesta, "D. Lima");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 3;
+	unJuego->idRespuesta = 4;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "A. Neil Armstrong");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 4;
+	unJuego->idRespuesta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "B. David Scott");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 4;
+	unJuego->idRespuesta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "C. John Young");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 4;
+	unJuego->idRespuesta = 3;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "D. James Irwin");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 4;
+	unJuego->idRespuesta = 4;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cómo se llama la máquina que utilizaban los alemanes para encriptar sus mensajes y que los aliados no supieran que decían?");
+	strcpy(unJuego->descripcionRespuesta, "A. Neil Armstrong");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 5;
+	unJuego->idRespuesta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cómo se llama la máquina que utilizaban los alemanes para encriptar sus mensajes y que los aliados no supieran que decían?");
+	strcpy(unJuego->descripcionRespuesta, "B. David Scott");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 5;
+	unJuego->idRespuesta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cómo se llama la máquina que utilizaban los alemanes para encriptar sus mensajes y que los aliados no supieran que decían?");
+	strcpy(unJuego->descripcionRespuesta, "C. John Young");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 5;
+	unJuego->idRespuesta = 3;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Cómo se llama la máquina que utilizaban los alemanes para encriptar sus mensajes y que los aliados no supieran que decían?");
+	strcpy(unJuego->descripcionRespuesta, "D. James Irwin");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 5;
+	unJuego->idRespuesta = 4;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "A. Neil Armstrong");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 6;
+	unJuego->idRespuesta = 1;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "B. David Scott");
+	unJuego->esCorrecta = true;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 6;
+	unJuego->idRespuesta = 2;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "C. John Young");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 6;
+	unJuego->idRespuesta = 3;
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
+	strcpy(unJuego->nombreCategoria, "Historia");
+	strcpy(unJuego->descripcionPregunta, "¿Quién fue la primera persona en pisar la luna?");
+	strcpy(unJuego->descripcionRespuesta, "D. James Irwin");
+	unJuego->esCorrecta = false;
+	unJuego->idCategoria = 1;
+	unJuego->idPregunta = 6;
+	unJuego->idRespuesta = 4;
 	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
 	
 	strcpy(unJuego->nombreCategoria, "Geografia");
@@ -125,7 +272,7 @@ int main()
 	unJuego->esCorrecta = true;
 	unJuego->idCategoria = 3;
 	unJuego->idPregunta = 2;
-	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);*/
+	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);
 	
 	/*strcpy(unJuego->nombreCategoria, "Geografia");
 	fwrite(unJuego, sizeof(Juego), 1, archivoContenido);

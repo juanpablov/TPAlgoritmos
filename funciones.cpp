@@ -8,6 +8,7 @@ ListaPreguntas* listaPreguntasCreate()
 {
 	ListaPreguntas* listaPreguntas = new ListaPreguntas();
 	listaPreguntas->primerElemento = NULL;
+	
 	return listaPreguntas;
 }
 
@@ -42,6 +43,27 @@ NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria)
 	return nuevoNodo;
 }
 
+NodoCategoria* listaCategoriaUltimoElemento(ListaCategoria *unaLista)
+{
+	NodoCategoria *unNodoAuxiliar = unaLista->primerElemento;
+	while(unNodoAuxiliar->siguienteElemento != NULL){
+		unNodoAuxiliar = unNodoAuxiliar->siguienteElemento;
+	}
+	return unNodoAuxiliar;
+}
+
+void listaCategoriaAgregarElemento(ListaCategoria *unaLista, Categoria *unaCategoria)
+{
+	NodoCategoria *unNodo = nodoCategoriaCreate(unaCatergoria);
+	if(unaLista->primerElemento == NULL){
+		unaLista->primerElemento = unNodo;
+	}
+	else{
+		NodoCategoria *ultimoNodo = listaCategoriaUltimoElemento(unaLista);
+		ultimoNodo->siguienteElemento = unNodo;
+	}
+}
+
 Categoria* categoriaCreate(string nombre)
 {
 	Categoria* nuevaCategoria = new Categoria();
@@ -51,12 +73,42 @@ Categoria* categoriaCreate(string nombre)
 	return nuevaCategoria;
 }
 
+Pregunta* categoriaBuscarUltimaPregunta(Categoria* unaCategoria)
+{
+	NodoPregunta* preguntaAuxiliar = unaCategoria->preguntas->primerElemento;
+	while(preguntaAuxiliar->siguienteElemento =! NULL){
+		preguntaAuxiliar = preguntaAuxiliar->siguienteElemento;
+	}
+	
+	return preguntaAuxiliar;
+}
+
 Pregunta* preguntaCreate(string descripcion)
 {
 	Pregunta* nuevaPregunta = new Pregunta();
 	nuevaPregunta->descripcion = descripcion;
 	nuevaPregunta->habilitada = true;
 	return nuevaPregunta;
+}
+
+NodoPregunta* listaPreguntasUltimoElemento(ListaPreguntas* unaLista)
+{
+	NodoPregunta* unNodoAuxiliar = unaLista->primerElemento;
+	while(unNodoAuxiliar->siguienteElemento = NULL){
+		unNodoAuxiliar = unNodoAuxiliar->siguienteElemento;
+	}
+	return unNodoAuxiliar;
+}
+
+void listaPreguntasAgregarElemento(ListaPreguntas* unaLista, Pregunta* unaPregunta)
+{
+	NodoPregunta* nuevoNodo = nodoPreguntaCreate(unaPregunta);
+	if(unaLista->primerElemento == NULL){
+		unaLista->primerElemento = unNodo;
+	}else{
+		NodoPregunta* ultimoNodo = listaPreguntasUltimoElemento(unaLista);
+		ultimoNodo->siguienteElemento = unNodo;
+	}
 }
 
 Respuesta* respuestaCreate(bool esCorrecta, string descripcion)
@@ -245,8 +297,50 @@ void opcionesTurno(Participante* participante){
 
 }
 
-ListaTurnos turnosJugadosDelParticipante(Participante* participante){
+ListaCategorias* iniciarCategoriasPreguntasRespuestas()
+{
+	ListaCategoria *listaCategoria = new listaCategoria();
+	FILE* archivoContenido = fopen("contenido.dat", "rb");
+
+	Juego* unJuego = new Juego();
+	int idCategoriaAnterior, idPreguntaAnterior;
 	
+	fread(unJuego, sizeof(Juego), 1, archivoContenido);
+	
+	while(!feof(archivoContenido))
+	{
+		idCategoriaAnterior = unJuego->idCategoria;
+		Categoria unaCategoria = categoriaCreate(unJuego->nombreCategoria);
+		listaCategoriaAgregarElemento(listaCategoria, unaCategoria);
+			
+		while(!feof(archivoContenido) && idCategoriaAnterior == unJuego->idCategoria)
+		{
+			idPreguntaAnterior = unJuego->idPregunta;
+			Pregunta unaPregunta = preguntaCreate(unJuego->descripcionPregunta);
+			listaPreguntaAgregarElemento(listaPregunta, unaPregunta);
+			
+			int i = 0;
+			while(!feof(archivoContenido) && idPreguntaAnterior == unJuego->idPregunta)
+			{
+				Pregunta* ultimaPregunta = categoriaBuscarUltimaPregunta(unaCategoria);
+				ultimaPregunta->respuestas[i] = respuestaCreate(unJuego->esCorrecta, unJuego->descripcionRespuesta);
+				i++
+				
+				cout<< unJuego->nombreCategoria<<" " <<  unJuego->descripcionPregunta<< " " << unJuego->descripcionRespuesta <<endl;
+				
+				fread(unJuego, sizeof(Juego), 1, archivoContenido);
+			}
+			idPreguntaAnterior = unJuego->idPregunta;
+		}
+		idCategoriaAnterior = unJuego->idCategoria;
+			
+	}
+	
+	fclose(archivoContenido);
 }
+
+/*ListaTurnos turnosJugadosDelParticipante(Participante* participante){
+	
+}*/
 
 
