@@ -1,8 +1,7 @@
-#include"Estructuras.h"
-#pragma warning(disable : 4996)
+#include "structs.h"
+#include <string>
 #include <iostream>
 using namespace std;
-
 
 
 ListaPreguntas* listaPreguntasCreate()
@@ -55,7 +54,7 @@ NodoCategoria* listaCategoriaUltimoElemento(ListaCategoria *unaLista)
 
 void listaCategoriaAgregarElemento(ListaCategoria *unaLista, Categoria *unaCategoria)
 {
-	NodoCategoria *unNodo = nodoCategoriaCreate(unaCategoria);
+	NodoCategoria *unNodo = nodoCategoriaCreate(unaCatergoria);
 	if(unaLista->primerElemento == NULL){
 		unaLista->primerElemento = unNodo;
 	}
@@ -77,11 +76,11 @@ Categoria* categoriaCreate(string nombre)
 Pregunta* categoriaBuscarUltimaPregunta(Categoria* unaCategoria)
 {
 	NodoPregunta* preguntaAuxiliar = unaCategoria->preguntas->primerElemento;
-	while(preguntaAuxiliar->siguienteElemento != NULL){
+	while(preguntaAuxiliar->siguienteElemento =! NULL){
 		preguntaAuxiliar = preguntaAuxiliar->siguienteElemento;
 	}
 	
-	return preguntaAuxiliar->unaPregunta;
+	return preguntaAuxiliar;
 }
 
 Pregunta* preguntaCreate(string descripcion)
@@ -105,10 +104,10 @@ void listaPreguntasAgregarElemento(ListaPreguntas* unaLista, Pregunta* unaPregun
 {
 	NodoPregunta* nuevoNodo = nodoPreguntaCreate(unaPregunta);
 	if(unaLista->primerElemento == NULL){
-		unaLista->primerElemento = nuevoNodo;
+		unaLista->primerElemento = unNodo;
 	}else{
 		NodoPregunta* ultimoNodo = listaPreguntasUltimoElemento(unaLista);
-		ultimoNodo->siguienteElemento = nuevoNodo;
+		ultimoNodo->siguienteElemento = unNodo;
 	}
 }
 
@@ -120,7 +119,14 @@ Respuesta* respuestaCreate(bool esCorrecta, string descripcion)
 	return unaRespuesta;
 }
 
-Pregunta* traerPreguntaHabilitada(ListaCategoria* categorias)
+
+Pregunta* traerPreguntaHabilitada()
+{
+	
+}
+
+
+Pregunta traerPreguntaHabilitada(ListaCategorias* categorias)
 {
 	NodoCategoria* categoriaAuxiliar = categorias->primerElemento;
 	NodoPregunta* preguntaAuxiliar = NULL;
@@ -141,22 +147,23 @@ Pregunta* traerPreguntaHabilitada(ListaCategoria* categorias)
 			}
 		}
 	} 
-	return preguntaAuxiliar->unaPregunta;
+	return preguntaAuxiliar;
 }
 
 
 
-Ronda* generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCategoria* categorias)
+Ronda generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCategorias* categorias)
 {
 	ListaTurnos* turnos = new ListaTurnos();
-	Ronda *ronda = new Ronda();
+	Ronda ronda = new Ronda();
 	NodoParticipante* participanteAuxiliar = participantes->primerElemento;
 	while(participanteAuxiliar->siguiente != NULL && participanteAuxiliar->participante->habilitado == 1){
 		Turno* nuevo_turno = new Turno();
 		nuevo_turno->participante = participanteAuxiliar->participante;
 		// =============== HACER FUNCTION TRAER PREGUNTA HABILITADA ===============
-		nuevo_turno->unaPregunta = traerPreguntaHabilitada(categorias); //Chequear si devuelve pregunta nula.
-		nuevo_turno->unaRespuesta = NULL;
+		nuevo_turno->pregunta = traerPreguntaHabilitada(categorias); //Chequear si devuelve pregunta nula.
+		nuevo_turno->respuesta = NULL;
+		nuevo_turno->horarioTurno = NULL;
 		agregarTurno(nuevo_turno, turnos);
 		participanteAuxiliar->participante->habilitado = 0;
 		participanteAuxiliar = participanteAuxiliar->siguiente;
@@ -170,7 +177,7 @@ Ronda* generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCatego
 	return ronda;
 }
 
-ListaRondas* generarRondas(int cantidadRondas, ListaParticipantes* participantes, ListaCategoria* categorias)
+ListaRondas generarRondas(int cantidadRondas, ListaParticipantes* participantes, ListaCategoria* categorias)
 {
 	ListaRondas* rondasIniciales = new ListaRondas();
 	for (int i = 0; i < cantidadRondas; i++)
@@ -195,32 +202,37 @@ ListaRondas* generarRondas(int cantidadRondas, ListaParticipantes* participantes
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos)
 {
+	NodoTurno* nodoAuxiliar = turnos->primerElemento;
+	// agregar chequeo lista vacia 
+	while(nodoAuxiliar->siguiente != NULL){
+		nodoAuxiliar = nodoAuxiliar->siguienteElemento;
+	}
 	NodoTurno* nuevo_nodo_turno = new NodoTurno();
 	nuevo_nodo_turno->turno = turno;
 	nuevo_nodo_turno->siguienteElemento = NULL;
-
-	if (turnos->primerElemento == NULL) {
-		turnos->primerElemento = nuevo_nodo_turno;
-	}
-	else {
-		NodoTurno* nodoAuxiliar = turnos->primerElemento;
-		while (nodoAuxiliar->siguienteElemento != NULL) {
-			nodoAuxiliar = nodoAuxiliar->siguienteElemento;
-		}
-		nodoAuxiliar->siguienteElemento = nuevo_nodo_turno;
-	}
+	nodoAuxiliar->siguienteElemento = nuevo_nodo_turno;
 }
 
-ListaParticipantes* ingresarParticipantes(int numeroDeParticipantes)
+bool estaHabilitada()
+{
+	// Completar
+}
+
+int sumarPuntos()
+{
+	// Completar
+}
+
+ListaParticipantes* ingresarParticipantes()
 {
 	ListaParticipantes* participantes = new ListaParticipantes();
-    for(int i = 0; i < numeroDeParticipantes; i++){
+    for(int i = 0; i < 5; i++){
     	Participante* nuevo_participante = new Participante();
     	nuevo_participante->idParticipante = i;
     	nuevo_participante->habilitado = 1;
     	nuevo_participante->puntos = 0;
         cout << "Ingrese un Jugador" << endl;
-        cin >> nuevo_participante->nombre;
+        cin << nuevo_participante->nombre << endl;
         NodoParticipante* nodo = new NodoParticipante();
         nodo->participante = nuevo_participante;
         nodo->siguiente = NULL;
@@ -247,7 +259,7 @@ NodoRonda* buscarUltimaRonda(ListaRondas* rondas)
 }
 
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes)
-{
+d{
 
 	NodoParticipante* nodoAuxiliar = participantes->primerElemento;
 	while(nodoAuxiliar->siguiente != NULL){
@@ -269,13 +281,13 @@ void opcionesTurno(Participante* participante, ListaRondas* rondas){
 			cin >> opcionElegida; 
 		}
 		switch(opcionElegida){
-		case 1: 
+			case 1:
 				cout << "El puntaje de " << participante->nombre << " es " << participante->puntos << endl;
-				opcionesTurno(participante, rondas); 
+				opcionesTurno(participante);
 				break;
 			case 2:
 				turnosJugados(participante, rondas);
-				opcionesTurno(participante, rondas);
+				opcionesTurno(participante);
 				break;
 			case 3: 
 				return;
@@ -283,70 +295,67 @@ void opcionesTurno(Participante* participante, ListaRondas* rondas){
 
 }
 
-ListaCategoria* iniciarCategoriasPreguntasRespuestas()
+ListaCategorias* iniciarCategoriasPreguntasRespuestas()
 {
-	ListaCategoria* listaCategoria = new ListaCategoria();
+	ListaCategoria *listaCategoria = new listaCategoria();
 	FILE* archivoContenido = fopen("contenido.dat", "rb");
 
 	Juego* unJuego = new Juego();
 	int idCategoriaAnterior, idPreguntaAnterior;
-
+	
 	fread(unJuego, sizeof(Juego), 1, archivoContenido);
-
-	while (!feof(archivoContenido))
+	
+	while(!feof(archivoContenido))
 	{
 		idCategoriaAnterior = unJuego->idCategoria;
-		Categoria* unaCategoria = categoriaCreate(string(unJuego->nombreCategoria));
+		Categoria unaCategoria = categoriaCreate(unJuego->nombreCategoria);
 		listaCategoriaAgregarElemento(listaCategoria, unaCategoria);
-
-		while (!feof(archivoContenido) && idCategoriaAnterior == unJuego->idCategoria)
+			
+		while(!feof(archivoContenido) && idCategoriaAnterior == unJuego->idCategoria)
 		{
 			idPreguntaAnterior = unJuego->idPregunta;
-			Pregunta* unaPregunta = preguntaCreate(string(unJuego->descripcionPregunta));
-			listaPreguntasAgregarElemento(unaCategoria->preguntas, unaPregunta);
-
+			Pregunta unaPregunta = preguntaCreate(unJuego->descripcionPregunta);
+			listaPreguntaAgregarElemento(listaPregunta, unaPregunta);
+			
 			int i = 0;
-			while (!feof(archivoContenido) && idPreguntaAnterior == unJuego->idPregunta)
+			while(!feof(archivoContenido) && idPreguntaAnterior == unJuego->idPregunta)
 			{
 				Pregunta* ultimaPregunta = categoriaBuscarUltimaPregunta(unaCategoria);
-				ultimaPregunta->respuestas[i] = respuestaCreate(unJuego->esCorrecta, string(unJuego->descripcionRespuesta));
-				i++;
-
-				cout << unJuego->nombreCategoria << " " << unJuego->descripcionPregunta << " " << unJuego->descripcionRespuesta << endl;
-
+				ultimaPregunta->respuestas[i] = respuestaCreate(unJuego->esCorrecta, unJuego->descripcionRespuesta);
+				i++
+				
+				cout<< unJuego->nombreCategoria<<" " <<  unJuego->descripcionPregunta<< " " << unJuego->descripcionRespuesta <<endl;
+				
 				fread(unJuego, sizeof(Juego), 1, archivoContenido);
 			}
 			idPreguntaAnterior = unJuego->idPregunta;
 		}
 		idCategoriaAnterior = unJuego->idCategoria;
-
+			
 	}
-
+	
 	fclose(archivoContenido);
-	return listaCategoria;
-}
 
 void turnosJugados(Participante* participante, ListaRondas* rondas){
 	NodoRonda* rondaAuxiliar = rondas->primerElemento;
 	int contadorRespuestas = 0;
 	while(rondaAuxiliar != NULL){
-		NodoTurno* turnoAuxiliar = rondaAuxiliar->unaRonda->turnos->primerElemento;
+		NodoTurno* turnoAuxiliar = rondaAuxiliar->turnos->primerElemento;
 		while(turnoAuxiliar != NULL){
 			if (participante->idParticipante == turnoAuxiliar->turno->participante->idParticipante)
 			{
 				if (turnoAuxiliar->turno->unaRespuesta != NULL)
 				{
 					contadorRespuestas++;
-					cout << "Preguntas Respondidas Por " << turnoAuxiliar->turno->participante->nombre << ":" << endl;
-					cout << "Datos de la pregunta numero" << " " << contadorRespuestas << endl;
+					cout << "Datos de la pregunta nro " << contadorRespuestas << "del participante.";
 					cout << turnoAuxiliar->turno->unaPregunta->descripcion << endl;
 					cout << "Su respuesta fue: " << endl;
 					cout << turnoAuxiliar->turno->unaRespuesta->descripcion << endl;
 					if (turnoAuxiliar->turno->unaRespuesta->correcta == 1)
 					{
-						cout << "La respuesta fue CORRECTA" << endl << endl;
+						cout << "La respuesta fue CORRECTA" << endl;
 					} else{
-						cout << "La respuesta fue INCORRECTA" << endl << endl;
+						cout << "La respuesta fue INCORRECTA" << endl;
 
 					}
 				}
@@ -358,5 +367,9 @@ void turnosJugados(Participante* participante, ListaRondas* rondas){
 	return;
 
 }
+
+/*ListaTurnos turnosJugadosDelParticipante(Participante* participante){
+	
+}*/
 
 
