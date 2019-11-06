@@ -335,6 +335,7 @@ int main()
 			} else {
 				cout << "Respuesta Incorrecta" << endl;
 			}
+			
 			NodoParticipante* participanteAuxiliar = participantesEnJuego->primerElemento;
 			while(participanteAuxiliar != NULL){
 				unParticipante = participanteAuxiliar->participante;
