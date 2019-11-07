@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 using namespace std;
 
@@ -22,9 +23,7 @@ struct Pregunta
 {
 	string descripcion;
 	bool habilitada;
-	//puede ser un array de respuestas?
 	Respuesta* respuestas[4];
-	ListaRespuestas* respuestass;
 };
 
 struct NodoPregunta
@@ -62,8 +61,6 @@ struct Participante
 	string nombre;
 	bool habilitado;
 	int puntos;
-	// int posUltPreg;
-	//ListaTurnos* turnos;
 };
 
 struct NodoParticipante
@@ -117,36 +114,35 @@ struct ListaRondas
 struct Juego
 {
 	char nombreCategoria[50];
-	char descripcionPregunta[150];
-	char descripcionRespuesta[150];
+	char descripcionPregunta[200];
+	char descripcionRespuesta[200];
 	int idCategoria, idPregunta, idRespuesta;
 	bool esCorrecta;
 };
 
-#ifndef funciones
-#define funciones
 
 void agregarTurno(Turno* turno, ListaTurnos* turnos);
-Ronda generarRonda(ListaParticipantes* participantes, ListaTurnos* turnos);
-void recuperarCatPregResp(ListaCategoria* unaListaCat);
-ListaCategorias* iniciarCategoriasPreguntasRespuestas();
-Categoria* inicializarNuevaCategoria();
+void turnosJugados(Participante* participante, ListaRondas* rondas);
+void listaPreguntasAgregarElemento(ListaPreguntas* unaLista, Pregunta* unaPregunta);
+void opcionesTurno(Participante* participante, ListaRondas* rondas);
 ListaPreguntas* listaPreguntasCreate();
 ListaRespuestas* listaRespuestasCreate();
+ListaRondas* generarRondas(int cantidadRondas, ListaParticipantes* participantes, ListaCategoria* categorias);
+ListaCategoria* iniciarCategoriasPreguntasRespuestas();
+ListaParticipantes* ingresarParticipantes(int numeroDeParticipantes);
 NodoRespuesta* nodoRespuestaCreate(Respuesta* unaRespuesta);
 NodoPregunta* nodoPreguntaCreate(Pregunta* unaPregunta);
 NodoCategoria* nodoCategoriaCreate(Categoria* unaCategoria);
-Categoria* categoriaCreate(string nombre);
-Pregunta* preguntaCreate(string descripcion);
-Respuesta* respuestaCreate(bool esCorrecta, string descripcion );
-Pregunta* traerPreguntaHabilitada();
-ListaParticipantes* ingresarParticipantes();
+NodoRonda* buscarUltimaRonda(ListaRondas* rondas);
 NodoParticipante* buscarUltimoParticipante(ListaParticipantes* participantes);
-void listaCategoriaAgregarElemento(ListaCategoria *unaLista, Categoria *unaCategoria);
-NodoCategoria* listaCategoriaUltimoElemento(ListaCategoria *unaLista);
-NodoPregunta* listaPreguntasUltimoElemento(ListaPreguntas* unaLista);
-void listaPreguntasAgregarElemento(ListaPreguntas* unaLista, Pregunta* unaPregunta);
-bool estaHabilitada(); 
-int sumarPuntos(); 
+Pregunta* preguntaCreate(string descripcion);
+Pregunta* traerPreguntaHabilitada(ListaCategoria* categorias);
+Categoria* categoriaCreate(string nombre);
+Respuesta* respuestaCreate(bool esCorrecta, string descripcion);
+Ronda* generarRonda(ListaParticipantes* participantes, int nroRonda, ListaCategoria* categorias);
 
-#endif
+// Pensar funcion para calcular la cantidad de rondas
+
+
+
+
